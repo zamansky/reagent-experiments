@@ -1,19 +1,21 @@
 (ns main
-  (:require [reagent.core :as r]
-            [cljs.core.async :refer (chan put! <! go go-loop timeout)]
-            [for-editor :as e]
-            ))
+  (:require
+   [reagent.core   :as r]
+   [cljs.core.async :refer (chan put! <! go go-loop timeout)]
+   [for-editor :default Editor]
+   ))
 
-(defn zeditor []
-  [e/Editor]
-  )
+
+(def a (r/atom "HELLO"))
+
 (defn main-component []
   [:div 
    [:hr]
-   [zeditor ]
+   [:> Editor {:on-change #(reset! a %):value @a}]
+   
    [:hr]
-
    ])
+
 
 
 (defn mount [c]
